@@ -7,20 +7,21 @@ import lombok.NoArgsConstructor;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 
-import java.util.Map;
-
 @DynamoDbBean
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Symptom {
-    public static final String SYMPTOM = "SYMPTOM";
-    private String dataId;
-    private Map<String, Double> conditionProbabilities;
+public class Assessment {
+    public static final String ASSESSMENT = "ASSESSMENT";
+    private String assessmentId;
+    private String userId;
+    private int questionCount = 0;
 
     @DynamoDbPartitionKey
-    public String getDataId() {
-        return dataId;
+    public String getAssessmentId() {
+        return assessmentId;
     }
+
+
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.*;
 
+import static com.healthily.model.Assessment.ASSESSMENT;
 import static com.healthily.model.Condition.CONDITION;
 import static com.healthily.model.Symptom.SYMPTOM;
 import static com.healthily.model.User.USER;
@@ -17,16 +18,21 @@ public class DataDefinitionService {
     private final DynamoDbClient dynamoDbClient;
 
     public void createSymptomTable() {
-        createTable(SYMPTOM, "symptomId");
+        createTable(SYMPTOM, "dataId");
     }
 
     public void createConditionTable() {
-        createTable(CONDITION, "conditionId");
+        createTable(CONDITION, "dataId");
 
     }
 
     public void createUserTable() {
         createTable(USER, "email");
+
+    }
+
+    public void createAssessmentTable() {
+        createTable(ASSESSMENT, "assessmentId");
 
     }
 

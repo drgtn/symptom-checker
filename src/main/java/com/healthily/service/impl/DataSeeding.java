@@ -27,7 +27,7 @@ public class DataSeeding {
         if (conditionRows.isEmpty()) return;
         log.info("Seeding conditions...");
         for (String[] row : conditionRows.subList(1, conditionRows.size())) {
-            conditionTable.putItem(Condition.builder().conditionId(row[1]).prevalence(Double.parseDouble(row[2])).build());
+            conditionTable.putItem(Condition.builder().dataId(row[1]).prevalence(Double.parseDouble(row[2])).build());
         }
     }
 
@@ -43,7 +43,7 @@ public class DataSeeding {
             for (int i = 2; i < row.length; i++) {
                 conditionProbabilities.put(headers[i], Double.parseDouble(row[i]));
             }
-            symptomTable.putItem(Symptom.builder().symptomId(row[1]).conditionProbabilities(conditionProbabilities).build());
+            symptomTable.putItem(Symptom.builder().dataId(row[1]).conditionProbabilities(conditionProbabilities).build());
         }
     }
 

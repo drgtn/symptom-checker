@@ -26,6 +26,7 @@ public class SymptomCheckerApplication {
             dataDefinitionService.createConditionTable();
             dataDefinitionService.createSymptomTable();
             dataDefinitionService.createUserTable();
+            dataDefinitionService.createAssessmentTable();
             dataSeeding.seedConditions();
             dataSeeding.seedSymptoms();
 

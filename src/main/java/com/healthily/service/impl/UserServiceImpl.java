@@ -6,7 +6,6 @@ import com.healthily.exception.UserNotFoundException;
 import com.healthily.mapper.UserMapper;
 import com.healthily.model.User;
 import com.healthily.repository.UserRepository;
-import com.healthily.repository.impl.UserRepositoryImpl;
 import com.healthily.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

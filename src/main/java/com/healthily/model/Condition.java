@@ -14,11 +14,11 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbParti
 @AllArgsConstructor
 public class Condition {
     public static final String CONDITION = "CONDITION";
-    private String conditionId;
+    private String dataId;
     private double prevalence;
 
     @DynamoDbPartitionKey
-    public String getConditionId() {
-        return conditionId;
+    public String getDataId() {
+        return dataId;
     }
 }

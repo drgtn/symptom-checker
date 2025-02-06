@@ -1,8 +1,7 @@
-package com.healthily.repository.impl;
+package com.healthily.repository;
 
 import com.healthily.BaseIT;
 import com.healthily.model.User;
-import com.healthily.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

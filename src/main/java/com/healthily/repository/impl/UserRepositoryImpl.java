@@ -21,6 +21,7 @@ public class UserRepositoryImpl implements UserRepository {
         findByEmail(email).ifPresent(userTable::deleteItem);
     }
 
+
     public Optional<User> findByEmail(String email) {
         User user = userTable.getItem(r -> r.key(k -> k.partitionValue(email)));
         return Optional.ofNullable(user);

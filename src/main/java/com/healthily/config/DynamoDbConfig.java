@@ -1,5 +1,6 @@
 package com.healthily.config;
 
+import com.healthily.model.Assessment;
 import com.healthily.model.Condition;
 import com.healthily.model.Symptom;
 import com.healthily.model.User;
@@ -15,6 +16,7 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
 import java.net.URI;
 
+import static com.healthily.model.Assessment.ASSESSMENT;
 import static com.healthily.model.Condition.CONDITION;
 import static com.healthily.model.Symptom.SYMPTOM;
 import static com.healthily.model.User.USER;
@@ -53,5 +55,9 @@ public class DynamoDbConfig {
     @Bean
     public DynamoDbTable<User> userTable(DynamoDbEnhancedClient enhancedClient) {
         return enhancedClient.table(USER, TableSchema.fromBean(User.class));
+    }
+    @Bean
+    public DynamoDbTable<Assessment> assessmentTable(DynamoDbEnhancedClient enhancedClient) {
+        return enhancedClient.table(ASSESSMENT, TableSchema.fromBean(Assessment.class));
     }
 }
