@@ -17,14 +17,16 @@ public class AssessmentController {
 
     @PostMapping("/start")
     public ResponseEntity<AssessmentResponseDto> startAssessment(@RequestBody AssessmentRequestDto request) {
-        return ResponseEntity.ok(assessmentService.startAssessment(request));
+        return ResponseEntity.ok(
+                assessmentService.startAssessment(request));
     }
 
     @PostMapping("/{assessmentId}/answer")
     public ResponseEntity<AssessmentResponseDto> answerQuestion(
             @PathVariable String assessmentId,
             @RequestBody AssessmentAnswerRequestDto request) {
-        return ResponseEntity.ok(assessmentService.answerQuestion(assessmentId, request));
+        return ResponseEntity.ok(
+                assessmentService.answerQuestion(assessmentId, request));
     }
 
     @GetMapping("/{assessmentId}/result")

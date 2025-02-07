@@ -1,7 +1,9 @@
 # Symptom Checker Microservice Exercise
 
 ## Description
+
 Your task is to create a backend microservice that simulates a simple symptom checker. The service will:
+
 1. Collect basic user information.
 2. Ask questions about symptoms based on previously reported symptoms.
 3. Provide a probable condition based on the reported symptoms.
@@ -14,7 +16,9 @@ The assessment should end after **3 rounds of questions** or no other symptoms c
 
 ### **Microservice Design**
 
-Build a microservice using **Spring Boot**, or any other Java-based backend framework of your choice. Use [**DynamoDB**](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html#docker) as your database for this exercise. The microservice must implement the following **RESTful endpoints**:
+Build a microservice using **Spring Boot**, or any other Java-based backend framework of your choice. Use [**DynamoDB
+**](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html#docker) as
+your database for this exercise. The microservice must implement the following **RESTful endpoints**:
 
 #### **Authentication**
 
@@ -82,7 +86,8 @@ Build a microservice using **Spring Boot**, or any other Java-based backend fram
 
 ### **Assessment Logic**
 
-- Calculate the probability of each condition based on the reported symptoms using [**Bayes' Theorem**](https://en.wikipedia.org/wiki/Bayes%27_theorem).
+- Calculate the probability of each condition based on the reported symptoms using [**Bayes' Theorem
+  **](https://en.wikipedia.org/wiki/Bayes%27_theorem).
 - After **3 rounds of questions**, or no other symptoms can be asked about, the service should:
     - End the assessment.
     - Provide the most probable condition.
@@ -107,6 +112,7 @@ Build a microservice using **Spring Boot**, or any other Java-based backend fram
 ---
 
 ## Evaluation Criteria
+
 Your submission will be evaluated based on the following:
 
 1. **Code Quality**: Clean, maintainable code that adheres to best practices.
@@ -116,6 +122,20 @@ Your submission will be evaluated based on the following:
 5. **Testing**: Tests that validate key functionality.
 6. **CI/CD Workflow**: A GitHub Action workflow to ensure automated validation of the solution.
 
-This exercise is designed to evaluate your ability to build scalable, logical microservices with a real-world healthcare application in mind.
+This exercise is designed to evaluate your ability to build scalable, logical microservices with a real-world healthcare
+application in mind.
 
-**Good luck!**
+## High level solution
+
+User Input:
+Initial symptoms → ["Sneezing", "Runny nose"] specific case :
+
+1. Compute Probabilities for "Sneezing"
+2. Compute Probabilities for "Runny Nose" (Using the updated probabilities from "Sneezing")
+3. When selecting the Most Relevant Next Symptom
+   YES: P(S∣C)
+   NO: P(¬S∣C)=1−P(S∣C) - complement
+4. Compute the Variance of Each Symptom
+5. Take the highest variance as it means the symptom is more informative
+6. Compute Probabilities for next selected symptom (Using the updated probabilities from "Runny Nose") and so on
+     

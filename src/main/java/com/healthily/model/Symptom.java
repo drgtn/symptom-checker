@@ -9,11 +9,11 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbParti
 
 import java.util.Map;
 
-@DynamoDbBean
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@DynamoDbBean
 public class Symptom {
     public static final String SYMPTOM = "SYMPTOM";
     private String dataId;

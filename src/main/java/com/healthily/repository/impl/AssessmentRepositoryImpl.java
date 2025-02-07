@@ -24,6 +24,11 @@ public class AssessmentRepositoryImpl implements AssessmentRepository {
     }
 
     @Override
+    public void remove(String assessment) {
+        findById(assessment).ifPresent(assessmentTable::deleteItem);
+    }
+
+    @Override
     public Optional<Assessment> findById(String assessmentId) {
         return Optional.ofNullable(assessmentTable.getItem(r -> r.key(k -> k.partitionValue(assessmentId))));
     }

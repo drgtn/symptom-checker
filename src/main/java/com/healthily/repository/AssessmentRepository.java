@@ -10,4 +10,6 @@ public interface AssessmentRepository {
     Optional<Assessment> findById(String assessmentId);
 
     void update(Assessment assessment);
+
+    void remove(String assessment);
 }

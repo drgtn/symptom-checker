@@ -10,6 +10,7 @@ import static com.healthily.model.Assessment.ASSESSMENT;
 import static com.healthily.model.Condition.CONDITION;
 import static com.healthily.model.Symptom.SYMPTOM;
 import static com.healthily.model.User.USER;
+import static com.healthily.model.User.USER_ID_INDEX;
 
 @Slf4j
 @Component
@@ -27,8 +28,36 @@ public class DataDefinitionService {
     }
 
     public void createUserTable() {
-        createTable(USER, "email");
-
+        boolean tableExists = dynamoDbClient.listTables().tableNames().contains(USER);
+        if (!tableExists) {
+            CreateTableRequest userTable = CreateTableRequest.builder()
+                    .tableName(USER)
+                    .keySchema(KeySchemaElement.builder()
+                            .attributeName("email")
+                            .keyType(KeyType.HASH)
+                            .build())
+                    .attributeDefinitions(AttributeDefinition.builder()
+                                    .attributeName("email")
+                                    .attributeType(ScalarAttributeType.S)
+                                    .build(),
+                            AttributeDefinition.builder()
+                                    .attributeName("userId")
+                                    .attributeType(ScalarAttributeType.S)
+                                    .build())
+                    .globalSecondaryIndexes(GlobalSecondaryIndex.builder()
+                            .indexName(USER_ID_INDEX)
+                            .keySchema(KeySchemaElement.builder()
+                                    .attributeName("userId")
+                                    .keyType(KeyType.HASH)
+                                    .build())
+                            .projection(Projection.builder()
+                                    .projectionType(ProjectionType.ALL)
+                                    .build())
+                            .build())
+                    .billingMode(BillingMode.PAY_PER_REQUEST)
+                    .build();
+            dynamoDbClient.createTable(userTable);
+        }
     }
 
     public void createAssessmentTable() {

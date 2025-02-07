@@ -7,9 +7,10 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Repository
 @RequiredArgsConstructor
-public class ConditionRepository implements com.healthily.repository.ConditionRepository {
+public class ConditionRepositoryImpl implements com.healthily.repository.ConditionRepository {
     private final DynamoDbTable<Condition> conditionTable;
 
     @Override
