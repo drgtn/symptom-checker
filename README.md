@@ -138,4 +138,10 @@ Initial symptoms → ["Sneezing", "Runny nose"] specific case :
 4. Compute the Variance of Each Symptom
 5. Take the highest variance as it means the symptom is more informative
 6. Compute Probabilities for next selected symptom (Using the updated probabilities from "Runny Nose") and so on
+
+To start the project: docker-compose up -d
+
+There are 2 containers:
+http://localhost:8000 - DynamoDB running locally
+http://localhost:8001/ - A simple nice UI to visualize the data
      
