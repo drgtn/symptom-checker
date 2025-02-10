@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static java.util.Collections.emptyMap;
 import static java.util.stream.Stream.concat;
 import static org.apache.commons.lang3.BooleanUtils.YES;
 
@@ -155,6 +156,7 @@ public class AssessmentServiceImpl implements AssessmentService {
                 .userId(request.getUserId())
                 .reportedSymptoms(request.getInitialSymptoms())
                 .conditionProbabilities(initialProbabilities)
+                .askedQuestions(emptyMap())
                 .build();
     }
 
