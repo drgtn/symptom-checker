@@ -20,6 +20,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.text.DecimalFormat;
 import java.util.Optional;
 
 import static com.healthily.fixtures.AssessmentAnswerRequestDto.aAssessmentAnswerRequestDto;
@@ -38,6 +39,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class AssessmentServiceTest {
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
     @InjectMocks
     private AssessmentServiceImpl assessmentService;
 
@@ -93,7 +95,7 @@ class AssessmentServiceTest {
         assertThat(responseOne).usingRecursiveComparison().isEqualTo(aWateryOrItchyEyesAssessmentResponseDto(responseOne.getAssessmentId()));
         verify(assessmentRepository).save(assessmentCaptor.capture());
         assertThat(assessmentCaptor.getValue()).usingRecursiveComparison().ignoringFields("assessmentId")
-                .isEqualTo(aInitialAssessment(request));
+                .isEqualTo(aInitialAssessment(request, null));
 
     }
 
@@ -102,7 +104,7 @@ class AssessmentServiceTest {
         String assessmentId = "assessmentId";
         AssessmentAnswerRequestDto answerRequestDto = aAssessmentAnswerRequestDto();
         AssessmentRequestDto request = aAssessmentRequestSneezingRunnyNose();
-        Optional<Assessment> assessment = Optional.of(aInitialAssessment(request));
+        Optional<Assessment> assessment = Optional.of(aInitialAssessment(request, null));
 
         when(assessmentRepository.findById(assessmentId)).thenReturn(assessment);
         when(symptomRepository.findById(answerRequestDto.getQuestionId())).thenReturn(Optional.of(aWateryOrItchyEyes()));
@@ -134,12 +136,12 @@ class AssessmentServiceTest {
     void testGetResult() {
         String assessmentId = "assessmentId";
         AssessmentRequestDto request = aAssessmentRequestSneezingRunnyNose();
-        Optional<Assessment> assessment = Optional.of(aInitialAssessment(request));
+        Optional<Assessment> assessment = Optional.of(aInitialAssessment(request, DECIMAL_FORMAT));
         when(assessmentRepository.findById(assessmentId)).thenReturn(assessment);
         ResultResponseDto resultResponseDto = assessmentService.getResult(assessmentId);
         assertThat(resultResponseDto).usingRecursiveComparison().isEqualTo(ResultResponseDto.builder()
                 .condition("Common Cold")
-                .probabilities(aInitialAssessment(request).getConditionProbabilities())
+                .probabilities(aInitialAssessment(request, DECIMAL_FORMAT).getConditionProbabilities())
                 .build());
 
     }

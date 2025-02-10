@@ -16,6 +16,7 @@ import com.healthily.service.AssessmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ import static org.apache.commons.lang3.BooleanUtils.YES;
 @RequiredArgsConstructor
 public class AssessmentServiceImpl implements AssessmentService {
     private static final int MAX_QUESTIONS = 3;
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
 
     private final AssessmentRepository assessmentRepository;
     private final SymptomRepository symptomRepository;
@@ -82,10 +84,19 @@ public class AssessmentServiceImpl implements AssessmentService {
     @Override
     public ResultResponseDto getResult(String assessmentId) {
         Assessment assessment = findAssessmentById(assessmentId);
+        Map<String, Double> roundedProbabilities = getRoundedProbabilities(assessment);
         return ResultResponseDto.builder()
                 .condition(getMostProbableCondition(assessment))
-                .probabilities(assessment.getConditionProbabilities())
+                .probabilities(roundedProbabilities)
                 .build();
+    }
+
+    private static Map<String, Double> getRoundedProbabilities(Assessment assessment) {
+        return assessment.getConditionProbabilities().entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        entry -> Double.valueOf(DECIMAL_FORMAT.format(entry.getValue()))
+                ));
     }
 
     private static String getMostProbableCondition(Assessment assessment) {
